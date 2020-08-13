@@ -11,7 +11,10 @@ html, body {
   * {
     box-sizing: border-box;
   }
-  
+  .link{
+    color: whitesmoke;
+    margin-top: 20px;
+  }
   .joinOuterContainer {
     display: flex;
     justify-content: center;
@@ -19,6 +22,7 @@ html, body {
     height: 100vh;
     align-items: center;
     background-color: #1A1A1D;
+    padding-bottom: 20px;
   }
   
   .joinInnerContainer {
@@ -37,7 +41,9 @@ html, body {
     padding-bottom: 10px;
     border-bottom: 2px solid white;
   }
-  
+  .paddingContainer{
+    padding-bottom: 20px;
+  }
   .button {
       color: #fff !important;
       text-transform: uppercase;

@@ -1,7 +1,7 @@
 import axios from 'axios'
 const getUsers = async (obj) => {
     console.log(obj)
-    let res = await axios.get('http://localhost:8000/get-users')
+    let res = await axios.get('http://localhost:8000/get-users/'+obj)
     console.log(res.data)
     if (res.data) {
         return res.data.data

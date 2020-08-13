@@ -29,11 +29,12 @@ const ChatBox = ( props) => {
     const token = localStorage.getItem("token")
   const payload = jwt.decode(token)
   setPayload(payload)
-    const name = props.location.state.name;
+  console.log(props.name)
+    const name = props.name;
     socket = io(ENDPOINT);
       let reqObj={
         followingName:payload.name,
-        userName:props.location.state.name
+        userName:props.name
       }
       console.log(reqObj)
       let result = await getRoom(reqObj)
@@ -82,8 +83,8 @@ const ChatBox = ( props) => {
     
     <div className="outerContainer">
       
-      <div className="container">
-          <InfoBar name={name}/>
+      <div className="container-chat">
+          <InfoBar name={name} chatEnd={props.chatEnd}/>
           <Messages messages={messages} name={name} room={room} userName={payloads.name} previousMessages={previousMessages} />
           <Input message={message}  setMessage={setMessage} sendMessage={sendMessage} />
           

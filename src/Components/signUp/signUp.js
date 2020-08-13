@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import { Link,Redirect } from "react-router-dom";
-import {login,signUp} from '../../api/login'
-import './Join.css'
+
+import {signUp} from '../../api/login'
+import '../Join/Join.css'
 import {useFormik} from 'formik'
-import Chat from '../Chat/Chat'
+import { Link } from 'react-router-dom';
+
 
 export default function SignIn() {
-  const [name, setName] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [password, setPassword] = useState('');
+
   const validate = values => {
     const errors = {};
     if (!values.name) {
-      errors.name = 'Required';
+      errors.name = 'Username is Required*';
     } else if (values.name.length > 15) {
       errors.name = 'Must be 15 characters or less';
     }
   
     if (!values.password) {
-      errors.password = 'Required';
+      errors.password = 'Password is Required*';
     } else if (values.password.length < 8) {
       errors.password = 'Must be greater than 8 characters ';
     }
@@ -30,38 +29,26 @@ export default function SignIn() {
       password: '',
     },
     validate,
-    onSubmit:async (values) => {
+    onSubmit:async( values) => {
+      // alert(JSON.stringify(values, null, 2));
       let reqObj ={
         name:values.name,
         password:values.password
       }
-      
-      console.log("signin")
-      let result = await login(reqObj)
-      localStorage.setItem('token',result.token)
-      setIsLoggedIn(true)
-    },
-  });
-  const submit=async()=>{
-    console.log(formik.values.name)
-    let reqObj ={
-      name:formik.values.name,
-      password:formik.values.password
+      let res = await signUp(reqObj)
+      alert(res)
     }
     
-    console.log("signin")
-    let result = await login(reqObj)
-    localStorage.setItem('token',result.token)
-    setIsLoggedIn(true)
-  }
+  });
+ 
   return (
-    !isLoggedIn?
+
     <form onSubmit={formik.handleSubmit}>
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
         <h1 className="heading">Join</h1>
-        <div>
-       
+        <div className="paddingContainer">
+         
           <input
            placeholder="Name" 
            className="joinInput" 
@@ -72,7 +59,8 @@ export default function SignIn() {
         />
          {formik.errors.name ? <div style={{color:"red",left:675,position:"absolute"}}>{formik.errors.name}</div> : null}
         </div>
-        <div>
+        <div className= "paddingContainer">
+       
           <input 
           type="password" 
           placeholder="Password" 
@@ -82,11 +70,11 @@ export default function SignIn() {
           value={formik.values.password} />
            {formik.errors.password ? <div style={{color:"red",left:675,position:"absolute"}}>{formik.errors.password}</div> : null}
         </div>
-        {/* <Link  to={{ pathname:'/chat',state:{name:name,password:password}}}> */}
-          <button   className={'button mt-20'} type="submit">Sign In</button>
-        {/* </Link> */}
+        <button   className={'button mt-20'} type="submit">Sign Up</button>
+        <Link to="/login" className="link">ExistingUser? Login</Link>
       </div>
     </div>
-    </form>:<Redirect  to={{ pathname:'/chat',state:{name:formik.values.name,password:formik.values.password}}}/>
-  );
+  
+    </form>
+  )
 }

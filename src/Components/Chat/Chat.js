@@ -14,15 +14,23 @@ import login from '../../api/login'
  import './Chat.css';
 
 let socket;
-
+//const useForceUpdate = () => useState()[1];
 const Chat = ( props) => {
    const [name, setName] = useState('');
-
+   const [toggle,setToggle]=useState(false)
+    //const forceUpdate =useForceUpdate()
   useEffect(() => {
     const name = props.location.state.name;
     const password = props.location.state.password
      setName(name)
   }, []);
+  useEffect(() => {
+    console.log("rerendered")
+  }, [toggle]);
+  const rerenderParentCallback=()=> {
+    setToggle(true)
+    console.log("hii",toggle)
+  }
 
   return (
     <div>
@@ -33,13 +41,17 @@ const Chat = ( props) => {
     </div>
      <div className="outerContainer">
       
-       <div className="container">
+      
+      
+      {/* <div className="container"> */}
+      <TextContainer  name={name}/>
+      {/* </div> */}
+      <div className="container-left">
           {/* <InfoBar/> */}
           {/* <Messages messages={messages} name={name} />
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} /> */}
-          <FollowRequest/>
+          <FollowRequest rerenderParentCallback={rerenderParentCallback}/>
       </div>  
-      <TextContainer name={name}/>
     </div>
     </div>
     

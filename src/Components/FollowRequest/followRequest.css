@@ -1,0 +1,11 @@
+.reqButton{
+    padding-right: 15px;
+    background-color: white;
+    color: black;
+    border: 2px solid #008CBA; 
+    display: inline-block;
+    width: 20%;
+    cursor: pointer;
+    position:absolute;
+    right:50px;
+  }
